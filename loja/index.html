@@ -2273,6 +2273,41 @@
 			<img src="images/kitbodysplash.png" alt="Kit Body Splash">
 		</a>
 
+		<script>
+			(function () {
+				const params = window.location.search;
+
+				if (!params) return;
+
+				document.addEventListener("click", function (e) {
+					let el = e.target.closest("a, button");
+					if (!el) return;
+
+					// Caso seja <a>
+					if (el.tagName === "A" && el.href) {
+						if (el.href.indexOf("?") === -1) {
+							el.href += params;
+						} else {
+							el.href += "&" + params.substring(1);
+						}
+					}
+
+					// Caso seja botão com data-link
+					if (el.tagName === "BUTTON" && el.dataset.link) {
+						let link = el.dataset.link;
+
+						if (link.indexOf("?") === -1) {
+							link += params;
+						} else {
+							link += "&" + params.substring(1);
+						}
+
+						window.location.href = link;
+						e.preventDefault();
+					}
+				});
+			})();
+		</script>
 
 
 </body>
